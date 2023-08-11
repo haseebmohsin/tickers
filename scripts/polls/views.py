@@ -64,7 +64,7 @@ def streamer(source, y1, y2, x1, x2, folder_save):
 
         # Process the frame as needed
         cv2.imwrite(
-            f"D:/Haseeb/ticker/public/{folder_save}/{characters}.jpg", ticker)
+            f"D:/Haseeb/tickers/public/{folder_save}/{characters}.jpg", ticker)
     cap.release()
     return characters
 
@@ -288,7 +288,7 @@ def dunya_ticker(request):
                           y1=297, y2=335, x1=89, x2=550, folder_save='Dunya_Ticker')
 
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/Dunya_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/Dunya_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     # print('text_ticker',text_ticker)
@@ -350,9 +350,9 @@ def geo_ticker(request):
     characters = streamer(source="https://www.youtube.com/watch?v=O3DPVlynUM0",
                           y1=305, y2=344, x1=1, x2=520, folder_save='Geo_Ticker')
 
-    # text_ticker = Drive_OCR(f"D:/Haseeb/ticker/public/headline_checker/{'Geo'+characters}.jpg")
+    # text_ticker = Drive_OCR(f"D:/Haseeb/tickers/public/headline_checker/{'Geo'+characters}.jpg")
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/Geo_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/Geo_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     # print('text_ticker',text_ticker)
@@ -468,7 +468,7 @@ def ary_ticker(request):
     characters = streamer(source="https://www.youtube.com/watch?v=sUKwTVAc0Vo",
                           y1=302, y2=359, x1=0, x2=531, folder_save='Ary_Ticker')
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/Ary_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/Ary_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     print('text_ticker', text_ticker)
@@ -533,9 +533,9 @@ def samaa_ticker(request):
     characters = streamer(source="https://www.youtube.com/watch?v=yHi3yIkPcLE",
                           y1=304, y2=345, x1=1, x2=515, folder_save='Samaa_Ticker')
 
-    # text_ticker = Drive_OCR(f"D:/Haseeb/ticker/public/headline_checker/{'Samaa'+characters}.jpg")
+    # text_ticker = Drive_OCR(f"D:/Haseeb/tickers/public/headline_checker/{'Samaa'+characters}.jpg")
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/Samaa_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/Samaa_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     # if 'Headlines' in str(text_ticker) or "ہیڈلائنز" in str(text_ticker):
@@ -604,7 +604,7 @@ def express_ticker(request):
                           y1=310, y2=358, x1=0, x2=495, folder_save='Express_Ticker')
 
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/Express_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/Express_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     all_objects = Ticker_Extraction_Model.objects.filter(
@@ -668,7 +668,7 @@ def hum_news_ticker(request):
                           y1=313, y2=348, x1=33, x2=543, folder_save='HumNews_Ticker')
 
     text_ticker = Drive_OCR(
-        f"D:/Haseeb/ticker/public/HumNews_Ticker/{characters}.jpg")
+        f"D:/Haseeb/tickers/public/HumNews_Ticker/{characters}.jpg")
 
     text_ticker = text_ticker.main()
     # print('text_ticker',text_ticker)
