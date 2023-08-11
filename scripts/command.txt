@@ -1,0 +1,1 @@
+waitress-serve --listen=*:4000 --thread=48 ticker_new.wsgi:application
