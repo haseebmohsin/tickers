@@ -1,2 +1,0 @@
-celery -A your_project_name worker --loglevel=info
-celery -A your_project_name beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=infoss

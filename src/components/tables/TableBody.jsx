@@ -2,12 +2,10 @@ import TableDropdown from './TableDropdown';
 import Loader from '../Loader';
 
 export default function TableBody(props) {
-  const { data, fields, isLoading, actions, handleDetails, handleEdit, handleDelete, selectedChannel } = props;
-
-  console.log(data);
+  const { data, fields, isLoading, actions, handleDetails, handleEdit, handleDelete } = props;
 
   const renderLoadingRow = () => (
-    <tr>
+    <tr className=''>
       <td colSpan={fields.length + 1} className='py-4 px-2 text-lg'>
         <div className='flex items-center justify-center'>
           <Loader height='50' isLoading={isLoading} />
@@ -18,16 +16,13 @@ export default function TableBody(props) {
 
   const renderDataRow = () =>
     data?.map((item) => (
-      <tr key={item.id} className='border-b dark:border-gray-700 text-center whitespace-nowrap'>
+      <tr key={item._id} className='border-b dark:border-gray-700 text-center whitespace-nowrap'>
         {fields?.map((field) => {
-          if (field.includes('Date')) {
+          if (field.includes('uploadDate')) {
             item[field] = item[field].toString().substring(0, 10);
           }
 
           const fieldValue = item[field];
-
-          console.log(fieldValue);
-          console.log(item);
 
           const renderValue = () => {
             if (fieldValue === '') {
@@ -35,13 +30,13 @@ export default function TableBody(props) {
             }
 
             // Check if the fieldValue contains the word "channel"
-            if (field.includes('channel')) {
-              return <img src={`/images/${fieldValue}`} alt={fieldValue} width='80' height='80' />;
+            if (field.includes('streamName')) {
+              return <img src={`/logos/${fieldValue}.png`} alt={fieldValue} width='40' height='40' />;
             }
 
             // Check if the field is 'ticker'
-            if (field === 'ticker_image') {
-              return <img src={`/${selectedChannel}/${fieldValue}`} alt={fieldValue} width='500' height='200' />;
+            if (field === 'tickerImage') {
+              return <img src={`data:image/jpeg;base64,${fieldValue}`} alt='Ticker' width='600' height='300' />;
             }
 
             return fieldValue;
@@ -56,7 +51,7 @@ export default function TableBody(props) {
 
         {actions && (
           <TableDropdown
-            id={item.id}
+            id={item._id}
             actions={actions}
             handleDetails={handleDetails}
             handleEdit={handleEdit}

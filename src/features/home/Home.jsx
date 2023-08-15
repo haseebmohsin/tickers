@@ -12,9 +12,10 @@ import TableBody from '../../components/tables/TableBody';
 
 import MyDatepicker from '../../components/MyDatepicker';
 import MyTimepicker from '../../components/MyTimepicker';
+import { toast } from 'react-hot-toast';
 
-const entries = ['id', 'Channel', 'Ticker', 'Date', 'Time'];
-const fields = ['channel', 'ticker', 'date', 'time'];
+const entries = ['Channel', 'Ticker', 'Date', 'Time'];
+const fields = ['streamName', 'tickerImage', 'uploadDate', 'uploadTime'];
 const actions = ['Details'];
 
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
   const [isTickersDataLoading, setIsTickersDataLoading] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState('');
   const [newsData, setNewsData] = useState([]);
+  const [intervalId, setIntervalId] = useState(null);
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -42,32 +44,51 @@ function Home() {
     }
   };
 
-  const handleToggleOn = () => {
+  const handleOnSwitchToggle = (checked) => {
+    if (checked) {
+      setIsTickersDataLoading(true);
+
+      const intervalId = setInterval(async () => {
+        try {
+          const response = await makeRequest({
+            path: 'api/livestream/getLiveTickers',
+            queryParams: {
+              channel: selectedChannel,
+            },
+          });
+
+          setNewsData(response.tickersData);
+        } catch (error) {
+          toast.error(error.message || 'Something went wrong');
+        } finally {
+          setIsTickersDataLoading(false);
+        }
+      }, 3000);
+
+      setIntervalId(intervalId);
+    } else {
+      clearInterval(intervalId);
+      setNewsData([]);
+    }
+  };
+
+  const handleApply = async () => {
     setIsTickersDataLoading(true);
 
-    setInterval(async () => {
-      try {
-        const response = await makeRequest({ path: `${selectedChannel}` });
+    try {
+      const response = await makeRequest({
+        path: 'api/livestream/getLiveTickers',
+        queryParams: {
+          channel: selectedChannel,
+        },
+      });
 
-        console.log(response.all_tickers);
-
-        setNewsData(response.all_tickers);
-
-        // setNewsData(
-        //   response.all_tickers.map((ticker, index) => ({
-        //     id: index + 1,
-        //     channel: 'geo-news.png',
-        //     ticker: ticker,
-        //     date: response.date,
-        //     time: response.timedata[index],
-        //   }))
-        // );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsTickersDataLoading(false);
-      }
-    }, 7000);
+      setNewsData(response.tickersData);
+    } catch (error) {
+      toast.error(error.message || 'Something went wrong');
+    } finally {
+      setIsTickersDataLoading(false);
+    }
   };
 
   // single inventory record details
@@ -88,7 +109,7 @@ function Home() {
               <div className='flex items-center justify-between gap-4 w-full'>
                 <Select onChange={(selectedValue) => setSelectedChannel(selectedValue)} />
 
-                <ToggleSwitch onToggleOn={handleToggleOn} />
+                <ToggleSwitch onSwitchToggle={handleOnSwitchToggle} />
               </div>
             </div>
 
@@ -106,7 +127,7 @@ function Home() {
               </div>
 
               <div>
-                <Button onClick={() => console.log('clicking apply')}>Apply</Button>
+                <Button onClick={handleApply}>Apply</Button>
               </div>
             </div>
           </div>

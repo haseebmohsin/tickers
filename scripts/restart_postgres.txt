@@ -1,3 +1,0 @@
-"C:\Program Files\PostgreSQL\15\bin\pg_ctl" restart -D data
-execute this when not running django
-keep pgadmin open while doing this

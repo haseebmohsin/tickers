@@ -3,14 +3,21 @@ import history from '../navigation';
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
-const makeRequest = async ({ method = 'GET', path, data }) => {
-  const url = `${baseUrl}/${path}`;
+const makeRequest = async ({ method = 'GET', path, data, queryParams }) => {
+  const url = new URL(`${baseUrl}/${path}`);
+
+  // Adding query parameters if provided
+  if (queryParams) {
+    Object.keys(queryParams).forEach((key) => {
+      url.searchParams.append(key, queryParams[key]);
+    });
+  }
 
   const headers = {};
 
   const options = {
     method,
-    url,
+    url: url.toString(),
     headers,
     data,
   };
