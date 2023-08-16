@@ -14,9 +14,9 @@ import MyDatepicker from '../../components/MyDatepicker';
 import MyTimepicker from '../../components/MyTimepicker';
 import { toast } from 'react-hot-toast';
 
-const entries = ['Channel', 'Ticker', 'Date', 'Time'];
-const fields = ['streamName', 'tickerImage', 'uploadDate', 'uploadTime'];
-const actions = ['Details'];
+const entries = ['Channel', 'Ticker', 'Date', 'Time', 'Text'];
+const fields = ['streamName', 'tickerImage', 'uploadDate', 'uploadTime', 'ocrText'];
+// const actions = ['Details'];
 
 function Home() {
   // const { data: session, status } = useSession();
@@ -140,7 +140,7 @@ function Home() {
                 isLoading={isTickersDataLoading}
                 fields={fields}
                 data={newsData}
-                actions={actions}
+                // actions={actions}
                 handleDetails={handleDetails}
                 selectedChannel={selectedChannel}
               />

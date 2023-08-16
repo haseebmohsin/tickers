@@ -43,7 +43,7 @@ export default function TableBody(props) {
           };
 
           return (
-            <td key={field} className='p-2'>
+            <td key={field} className='p-2 text-right'>
               {renderValue()}
             </td>
           );
