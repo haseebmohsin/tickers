@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import history from '../../navigation';
 import SearchBar from '../../components/SearchBar';
 import Select from '../../components/Select';
@@ -57,7 +57,7 @@ function Home() {
             },
           });
 
-          setNewsData(response.tickersData);
+          setNewsData(response);
         } catch (error) {
           toast.error(error.message || 'Something went wrong');
         } finally {
@@ -83,7 +83,7 @@ function Home() {
         },
       });
 
-      setNewsData(response.tickersData);
+      setNewsData(response);
     } catch (error) {
       toast.error(error.message || 'Something went wrong');
     } finally {
